@@ -1,0 +1,203 @@
+[gd_scene load_steps=11 format=3 uid="uid://bmqwpblg8yddx"]
+
+[ext_resource type="Script" uid="uid://gsbv6ta4u3eh" path="res://characters/CHARACTER.gd" id="1_tbrmg"]
+[ext_resource type="Texture2D" uid="uid://b72mg70i4wpl7" path="res://characters/textures/000000.png" id="2_mhany"]
+
+[sub_resource type="Animation" id="Animation_mhany"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.2, 0, 0.2, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("__GENERIC:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.2, 0, 0.2, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_c44w8"]
+resource_name = "move-a"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("__GENERIC:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.20000002, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("texture:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.19999999, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_cnamw"]
+resource_name = "move-b"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.2, 0, 0.2, 0, 1, -0.005555556, -0.16666667, 0, 0, 2, -0.005555556, -0.16666667, 0, 0, 3, -0.0055555566, -0.16666667, 0, 0),
+"times": PackedFloat32Array(0, 0.099999994, 0.19999999, 0.3)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("__GENERIC:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.2, 0, 0.2, 0, 1, -0.005555556, -0.16666667, 0, 0, 2, -0.005555556, -0.16666667, 0, 0, 3, -0.0055555566, -0.16666667, 0, 0),
+"times": PackedFloat32Array(0, 0.099999994, 0.19999999, 0.3)
+}
+
+[sub_resource type="Animation" id="Animation_cuvcw"]
+resource_name = "move-x"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("__GENERIC:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.19999999, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("texture:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.19999999, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_q1oep"]
+resource_name = "move-y"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("__GENERIC:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("texture:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.19999999, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q1oep"]
+_data = {
+&"RESET": SubResource("Animation_mhany"),
+&"move-a": SubResource("Animation_c44w8"),
+&"move-b": SubResource("Animation_cnamw"),
+&"move-x": SubResource("Animation_cuvcw"),
+&"move-y": SubResource("Animation_q1oep")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mhany"]
+size = Vector2(30, 6)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mhany"]
+radius = 44.04543
+
+[node name="CHARACTER" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_tbrmg")
+
+[node name="animations" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_q1oep")
+}
+
+[node name="__GENERIC" type="Sprite2D" parent="."]
+modulate = Color(0.65832245, 0.5719297, 1, 1)
+self_modulate = Color(1, 1, 1, 0.6392157)
+texture = ExtResource("2_mhany")
+hframes = 4
+vframes = 4
+
+[node name="texture" type="Sprite2D" parent="."]
+hframes = 4
+vframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 22)
+shape = SubResource("RectangleShape2D_mhany")
+
+[node name="RATIO" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RATIO"]
+shape = SubResource("CircleShape2D_mhany")
+debug_color = Color(0.5416936, 0.54801786, 0.41603217, 0.41960785)
+
+[node name="raycast" type="Node2D" parent="."]
+
+[node name="down" type="RayCast2D" parent="raycast"]
+position = Vector2(0, 26)
+target_position = Vector2(0, 24)
+
+[node name="left" type="RayCast2D" parent="raycast"]
+rotation = 1.5707964
+
+[node name="right" type="RayCast2D" parent="raycast"]
+rotation = -1.5707964
+
+[node name="up" type="RayCast2D" parent="raycast"]
+rotation = 3.1415927

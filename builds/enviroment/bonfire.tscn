@@ -1,0 +1,151 @@
+[gd_scene format=3 uid="uid://dho7f0t26tm8v"]
+
+[ext_resource type="Texture2D" uid="uid://b3je2u7isc1hq" path="res://assets/buildsheet/torch.png" id="1_mqejq"]
+[ext_resource type="Texture2D" uid="uid://ckgupqj447h8t" path="res://assets/particles/White puff/whitePuff12.png" id="2_qp3qs"]
+[ext_resource type="Texture2D" uid="uid://b7ntjq8oalj15" path="res://assets/particles/Flash/flash06.png" id="3_l2ny4"]
+[ext_resource type="Texture2D" uid="uid://dqlt04wog8umc" path="res://assets/textures/light.png" id="4_qp3qs"]
+
+[sub_resource type="GDScript" id="GDScript_qp3qs"]
+resource_name = "bonfireControl"
+script/source = "extends StaticBody2D
+
+@onready var fire = $switch
+
+func _areaEntered(body) -> void:
+	var entered = true
+	if body.name == 'PLAYER':
+		while entered:
+			var am = -1
+			GAMESTATE.healthAmount(am)
+			await get_tree().create_timer(2).timeout
+			am -= -1
+	else:
+		entered = false
+		return
+
+func _process(delta: float):
+	if GAMESTATE.hour >= 6 and GAMESTATE.hour <= 1:
+		fire.hide()
+	else:
+		fire.show()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l2ny4"]
+size = Vector2(69.166664, 38.333332)
+
+[sub_resource type="Curve" id="Curve_l2ny4"]
+_data = [Vector2(0.17916667, 0.21348321), 0.0, 0.0, 0, 0, Vector2(0.6041667, 0.41573036), 0.0, 0.0, 0, 0, Vector2(0.7416667, 0.29213488), 0.0, 0.0, 0, 0, Vector2(0.93750006, 0.55056185), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_o5qfd"]
+colors = PackedColorArray(0.997135, 0.6606271, 0.7374697, 1, 0.88722306, 0.49138123, 0.3214343, 1)
+
+[sub_resource type="Curve" id="Curve_kmmoq"]
+_limits = [-360.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0.008333325, -84.94379), 0.0, 0.0, 0, 0, Vector2(0.35833332, 117.303406), 0.0, 0.0, 0, 0, Vector2(0.975, -93.03369), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_4on03"]
+_limits = [-500.0, 500.0, 0.0, 1.0]
+_data = [Vector2(0.008333333, -342.69666), 0.0, 0.0, 0, 0, Vector2(0.43333337, 129.2135), 0.0, 0.0, 0, 0, Vector2(0.9875, 28.089905), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_ycgnq"]
+offsets = PackedFloat32Array(0, 0.99065423)
+colors = PackedColorArray(0.9999265, 0.79997027, 0.79448855, 1, 0.84494, 0.56075996, 0.40383908, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qp3qs"]
+size = Vector2(95.83333, 105)
+
+[node name="bonfire" type="StaticBody2D" unique_id=213103718]
+scale = Vector2(1.2, 1.2)
+script = SubResource("GDScript_qp3qs")
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=883115981]
+position = Vector2(0.41666695, 4.999999)
+shape = SubResource("RectangleShape2D_l2ny4")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=693828444]
+texture = ExtResource("1_mqejq")
+
+[node name="switch" type="Node2D" parent="." unique_id=862961888]
+
+[node name="steam" type="CPUParticles2D" parent="switch" unique_id=266965303]
+position = Vector2(-1, -44)
+amount = 30
+texture = ExtResource("2_qp3qs")
+lifetime = 0.8
+speed_scale = 0.1
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector2(0, 0.1)
+spread = 101.34
+gravity = Vector2(0, -980)
+initial_velocity_min = 83.97
+initial_velocity_max = 106.87
+scale_amount_min = 0.2
+scale_amount_max = 0.2
+color = Color(0.38560182, 0.38560182, 0.38560182, 0.027)
+
+[node name="rest" type="CPUParticles2D" parent="switch" unique_id=1015378090]
+amount = 15
+speed_scale = 0.3
+emission_shape = 2
+emission_sphere_radius = 7.15
+direction = Vector2(0, 1)
+spread = 180.0
+gravity = Vector2(0, -980)
+initial_velocity_min = 259.54
+initial_velocity_max = 290.08
+scale_amount_min = 0.0
+scale_amount_max = 23.9
+scale_amount_curve = SubResource("Curve_l2ny4")
+color = Color(0.9076536, 0.5855251, 0.37835595, 1)
+color_ramp = SubResource("Gradient_o5qfd")
+
+[node name="fire" type="CPUParticles2D" parent="switch" unique_id=217562950]
+position = Vector2(0, -20)
+amount = 30
+texture = ExtResource("3_l2ny4")
+lifetime = 0.28
+randomness = 0.08
+draw_order = 1
+emission_shape = 2
+emission_sphere_radius = 1.0
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, -500)
+initial_velocity_min = 45.8
+initial_velocity_max = 45.8
+angular_velocity_min = 0.1
+angular_velocity_max = 0.1
+angular_velocity_curve = SubResource("Curve_kmmoq")
+orbit_velocity_curve = SubResource("Curve_4on03")
+damping_min = 29.008
+damping_max = 56.489
+scale_amount_min = 0.1
+scale_amount_max = 0.3
+color = Color(0.74413764, 0.33138275, 0.1807287, 0.105882354)
+color_initial_ramp = SubResource("Gradient_ycgnq")
+hue_variation_min = -0.11
+hue_variation_max = 0.52
+
+[node name="PointLight2D" type="PointLight2D" parent="switch" unique_id=1717641690]
+position = Vector2(-0.8333333, -30.833332)
+color = Color(0.9630527, 0.6836089, 0.6807044, 0.652)
+blend_mode = 2
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.05)
+shadow_filter_smooth = 5.9
+texture = ExtResource("4_qp3qs")
+texture_scale = 0.7
+
+[node name="damage" type="Area2D" parent="." unique_id=1084656066]
+
+[node name="collision" type="CollisionShape2D" parent="damage" unique_id=552844396]
+visible = false
+position = Vector2(0.41666606, -23.333332)
+shape = SubResource("RectangleShape2D_qp3qs")
+debug_color = Color(0.93249273, 0.22918424, 0.3284693, 0.41960785)
+
+[connection signal="area_entered" from="damage" to="." method="_areaEntered"]

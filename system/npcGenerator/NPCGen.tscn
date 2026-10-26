@@ -1,0 +1,108 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwndf8d1enqd5"]
+
+[ext_resource type="PackedScene" uid="uid://bmqwpblg8yddx" path="res://characters/CHARACTER.tscn" id="1_0wtdr"]
+
+[sub_resource type="GDScript" id="GDScript_0wtdr"]
+resource_name = "controlNPC"
+script/source = "extends Node2D
+
+@export var template : PackedScene
+@export var parent : Node2D
+@export var origins : Array[Node2D] = []
+@export var spawn_range : Vector2 = Vector2(400, 300)
+@export var peop : int = 0
+@export var day_cycle : Node
+
+@onready var original = $CHARACTER
+
+var skins = [
+	\"NPCmale1\",
+	\"NPCmale2\",
+	\"NPCfemale1\",
+	\"NPCfemale2\",
+	\"NPCsenior1\",
+	\"NPCsenior2\",
+	\"NPCpriest\",
+	\"NPCscholar1\",
+	\"NPCscholar2\",
+	\"NPCscholar3\",
+	\"NPCpolymath\",
+	\"NPCwarrior1\",
+	\"NPCwarrior2\"
+]
+
+func _ready():
+	original.hide()
+	randomize()
+	if parent == null:
+		push_error(\"[*PARENT] Where is the F*cking Root Place?\")
+		return
+	if origins.is_empty():
+		push_error(\"[*ORIGINS] No spawn origins assigned\")
+		return
+	await get_tree().process_frame
+	spawn()
+
+func randskin():
+	return skins[randi() % skins.size()]
+
+func randpos(o: Node2D) -> Vector2:
+	return o.global_position + Vector2(
+		randf_range(-spawn_range.x * 0.5, spawn_range.x * 0.5),
+		randf_range(-spawn_range.y * 0.5, spawn_range.y * 0.5)
+	)
+
+func is_free_position(pos: Vector2) -> bool:
+	var space = get_world_2d().direct_space_state
+	var query = PhysicsPointQueryParameters2D.new()
+	query.position = pos
+	query.collide_with_areas = true
+	query.collide_with_bodies = true
+	return space.intersect_point(query).is_empty()
+
+func get_valid_pos(o: Node2D):
+	var tries = 20
+	while tries > 0:
+		var pos = randpos(o)
+		if is_free_position(pos):
+			return pos
+		tries -= 1
+	return null
+
+func born(charname, pos: Vector2):
+	var npc = template.instantiate()
+	npc.charname = charname
+	parent.add_child(npc)
+	npc.global_position = pos
+	if day_cycle != null:
+		day_cycle.time_tick.connect(npc._on_time_tick)
+
+func spawn():
+	if peop <= 0:
+		push_error('[* PEOP] Must be > 0 and positive integers')
+		return
+	if peop > 1000:
+		push_warning('[* PEOP] Too many NPCs, clamped to 1000')
+		peop = 1000
+
+	var per_origin = peop / origins.size()
+	var remainder = peop % origins.size()
+
+	for i in origins.size():
+		var count = per_origin + (1 if i == origins.size() - 1 and remainder > 0 else 0)
+		var o = origins[i]
+		while count > 0:
+			var skin = randskin()
+			var pos = get_valid_pos(o)
+			if pos != null:
+				born(skin, pos)
+				count -= 1
+			else:
+				push_warning(\"No valid pos near \" + o.name)
+				break
+"
+
+[node name="NPCGenerator" type="Node2D"]
+script = SubResource("GDScript_0wtdr")
+
+[node name="CHARACTER" parent="." instance=ExtResource("1_0wtdr")]

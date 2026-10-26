@@ -1,0 +1,98 @@
+[gd_scene load_steps=9 format=3 uid="uid://bcqjigge6a4sk"]
+
+[ext_resource type="PackedScene" uid="uid://bmqwpblg8yddx" path="res://characters/CHARACTER.tscn" id="1_7vw07"]
+[ext_resource type="PackedScene" uid="uid://uigkmtl7kotp" path="res://builds/biblioteca_ohir.tscn" id="2_si16d"]
+[ext_resource type="PackedScene" uid="uid://c5ncv3xxjr0na" path="res://PLAYER.tscn" id="3_r7qem"]
+[ext_resource type="PackedScene" uid="uid://dpi10qs7n5f14" path="res://builds/casaVanessa.tscn" id="3_sfssh"]
+[ext_resource type="PackedScene" uid="uid://csxnm25i7utn7" path="res://builds/casaBasica.tscn" id="3_si16d"]
+[ext_resource type="PackedScene" uid="uid://1e6o1h5goqvj" path="res://system/daynight.tscn" id="6_fy5ud"]
+[ext_resource type="PackedScene" uid="uid://dho7f0t26tm8v" path="res://builds/enviroment/bonfire.tscn" id="7_4jtfw"]
+
+[sub_resource type="GDScript" id="GDScript_7vw07"]
+script/source = "extends Node
+
+@onready var vane = $\"../interaction/Characters/CHARACTER\"
+@onready var rabi = $\"../interaction/Characters/CHARACTER2\"
+@onready var mika = $\"../interaction/Characters/CHARACTER3\"
+
+func _ready() -> void:
+	while true:
+		await rabi.left(1)
+		await vane.right(2)
+		await rabi.right(1)
+		await mika.up(1)
+		await mika.right(1)
+		await mika.down(1)
+		await mika.left(1)
+"
+
+[node name="TEST PLACE" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -3652.0
+offset_top = -5116.0
+offset_right = 3449.0
+offset_bottom = 2037.0
+color = Color(1, 0.9193659, 0.8633349, 1)
+
+[node name="Builds" type="Node2D" parent="."]
+
+[node name="casa-basica" parent="Builds" instance=ExtResource("3_si16d")]
+position = Vector2(-107, -29)
+
+[node name="casa-basica4" parent="Builds" instance=ExtResource("3_si16d")]
+position = Vector2(1040, -329)
+
+[node name="casa-basica5" parent="Builds" instance=ExtResource("3_si16d")]
+position = Vector2(-193, -666)
+
+[node name="casa-basica6" parent="Builds" instance=ExtResource("3_si16d")]
+position = Vector2(178, 421)
+
+[node name="bibliotecaOhir" parent="Builds" instance=ExtResource("2_si16d")]
+position = Vector2(695, 127)
+
+[node name="casa-basica2" parent="Builds" instance=ExtResource("3_si16d")]
+position = Vector2(-890, -368.99997)
+
+[node name="casa-basica3" parent="Builds" instance=ExtResource("3_si16d")]
+position = Vector2(-835, 426)
+
+[node name="casaVanessa" parent="Builds" instance=ExtResource("3_sfssh")]
+position = Vector2(361, -357)
+
+[node name="000" type="TileMapLayer" parent="."]
+
+[node name="interaction" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="enviroment" type="Node2D" parent="interaction"]
+y_sort_enabled = true
+
+[node name="bonfire" parent="interaction/enviroment" instance=ExtResource("7_4jtfw")]
+position = Vector2(-232, 505)
+
+[node name="Characters" type="Node2D" parent="interaction"]
+y_sort_enabled = true
+
+[node name="PLAYER" parent="interaction/Characters" instance=ExtResource("3_r7qem")]
+position = Vector2(-206, 88)
+
+[node name="CHARACTER" parent="interaction/Characters" instance=ExtResource("1_7vw07")]
+position = Vector2(-265, 218)
+charname = "vanessa"
+
+[node name="CHARACTER2" parent="interaction/Characters" instance=ExtResource("1_7vw07")]
+position = Vector2(-55, 114)
+charname = "rabino"
+
+[node name="CHARACTER3" parent="interaction/Characters" instance=ExtResource("1_7vw07")]
+position = Vector2(-348, 69)
+charname = "mika"
+
+[node name="MISSION CONTROL" type="Node" parent="."]
+script = SubResource("GDScript_7vw07")
+
+[node name="DayNightCycle" parent="." instance=ExtResource("6_fy5ud")]
+INGAME_SPEED = 5.0
+INITIAL_HOUR = 20

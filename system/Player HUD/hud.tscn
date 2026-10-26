@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://bun5ieyh3fat1"]
+
+[ext_resource type="Texture2D" uid="uid://0b8wesqlexd7" path="res://assets/textures/healthbar/container.png" id="1_dfnyt"]
+[ext_resource type="Texture2D" uid="uid://begjo84ajc0m3" path="res://assets/textures/healthbar/content.png" id="2_nixjx"]
+
+[sub_resource type="GDScript" id="GDScript_dfnyt"]
+resource_name = "HUDControl"
+script/source = "extends Control
+
+var life = 100
+@onready var healthbar = $Health
+@onready var coorlabel = $horizontal/Coor
+@onready var timelabel = $horizontal/Time
+
+func _ready() -> void:
+	GAMESTATE.health_act.connect(_on_health_changed)
+	_on_health_changed(GAMESTATE.stats[\"health\"])
+
+func _on_health_changed(new_health):
+	print(\"RECEIV: \", new_health)
+	life = new_health
+	healthbar.value = life
+
+func _process(_delta):
+	coorlabel.text = GAMESTATE.coor
+	timelabel.text = \"%02d:%02d\" % [GAMESTATE.hour, GAMESTATE.minute]
+"
+
+[sub_resource type="Theme" id="Theme_dfnyt"]
+
+[node name="HUD" type="CanvasLayer" unique_id=598492846]
+
+[node name="Control" type="Control" parent="." unique_id=1219626507]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+script = SubResource("GDScript_dfnyt")
+
+[node name="Health" type="TextureProgressBar" parent="Control" unique_id=440338290]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 60.0
+offset_right = 390.0
+offset_bottom = 144.0
+value = 40.0
+texture_under = ExtResource("1_dfnyt")
+texture_progress = ExtResource("2_nixjx")
+
+[node name="horizontal" type="HBoxContainer" parent="Control" unique_id=428163422]
+layout_mode = 0
+offset_left = 82.0
+offset_top = 15.0
+offset_right = 344.0
+offset_bottom = 57.0
+theme = SubResource("Theme_dfnyt")
+theme_override_constants/separation = 20
+
+[node name="Coor" type="Label" parent="Control/horizontal" unique_id=474809557]
+modulate = Color(0.9955804, 0.99558026, 0.99558026, 0.6117647)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+text = "000000 - 00000 - 0000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Time" type="Label" parent="Control/horizontal" unique_id=380257567]
+layout_mode = 2
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 30
+text = "00:00"
